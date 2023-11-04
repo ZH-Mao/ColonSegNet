@@ -41,6 +41,7 @@ class KvasirDataset(Dataset):
         """ Reading image and mask. """
         image = cv2.imread(self.images_path[index], cv2.IMREAD_COLOR)
         mask = cv2.imread(self.masks_path[index], cv2.IMREAD_GRAYSCALE)
+        file_name = os.path.basename(self.images_path[index])
 
         """ Resizing. """
         image1 = cv2.resize(image, (self.width, self.height))
@@ -72,7 +73,7 @@ class KvasirDataset(Dataset):
         # image3 = torch.from_numpy(image3)
         mask = torch.from_numpy(mask)
 
-        return image1, mask
+        return image1, mask, file_name
 
     def __len__(self):
         return self.n_samples
